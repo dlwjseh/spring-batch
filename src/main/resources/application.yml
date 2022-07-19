@@ -3,7 +3,7 @@ spring:
     active: local
 
 ---
-# job.name? ???? ?? Job? ??. ???? ??? NONE. ?, ?? Job? ???? ??
+# job.name을 파라미터로 받아서 해당 Job만 실행시킨다. 파라미터가 없을경우 NONE. 즉, 아무 Job도 실행하지 않는다.
 spring.batch.job.names: ${job.name:NONE}
 
 ---
@@ -12,7 +12,17 @@ spring:
     activate:
       on-profile: local
   datasource:
-    driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/alfredbatch
-    username: root
-    password: root
+    bard:
+      driver-class-name: com.mysql.cj.jdbc.Driver
+      jdbc-url: jdbc:mysql://localhost:3306/alfredbatch
+      username: root
+      password: root
+    alfred:
+      driver-class-name: com.mysql.cj.jdbc.Driver
+      jdbc-url: jdbc:mysql://localhost:3306/saas-alfredtestdb
+      username: root
+      password: root
+
+logging:
+  level:
+    org.springframework.batch: DEBUG
