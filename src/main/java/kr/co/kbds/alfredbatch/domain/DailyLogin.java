@@ -11,14 +11,14 @@ import lombok.ToString;
 @NoArgsConstructor
 public class DailyLogin {
 
-	private String yearMonth;
-	private String day;
+	private String loginYearMonth;
+	private String loginDay;
 	private Long productId;
 	private Integer loginCount;
 
-	public DailyLogin(String yearMonth, String day, Long productId, Integer loginCount) {
-		this.yearMonth = yearMonth;
-		this.day = day;
+	public DailyLogin(String loginYearMonth, String loginDay, Long productId, Integer loginCount) {
+		this.loginYearMonth = loginYearMonth;
+		this.loginDay = loginDay;
 		this.productId = productId;
 		this.loginCount = loginCount;
 	}

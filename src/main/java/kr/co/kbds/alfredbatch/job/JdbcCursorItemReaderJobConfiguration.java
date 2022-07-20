@@ -49,7 +49,7 @@ public class JdbcCursorItemReaderJobConfiguration {
 				.fetchSize(chunkSize) // Database에서 한번에 가져올 데이터 양
 				.dataSource(bardDatasource)
 				.rowMapper(new BeanPropertyRowMapper<>(DailyLogin.class)) // 쿼리 결과를 Java 인스턴스로 매핑하기 위한 Mapper
-				.sql("SELECT `year_month`, `day`, `product_id`, `login_count` FROM daily_login")
+				.sql("SELECT login_year_month, login_day, product_id, login_count FROM daily_login")
 				.name("jdbcCursorItemReader") // Bean이름 X. Spring Batch의 ExecutionContext에서 저장되어질 이름
 				.build();
 	}
