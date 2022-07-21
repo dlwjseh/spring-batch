@@ -19,7 +19,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 
-import kr.co.kbds.alfredbatch.domain.DailyLogin;
+import kr.co.kbds.alfredbatch.domain.bard.BardDailyLogin;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
@@ -43,34 +43,34 @@ public class JdbcPagingItemReaderJobConfiguration {
 	@Bean
 	public Step jdbcPagingItemReaderStep() throws Exception {
 		return stepBuilderFactory.get("jdbcPagingItemReaderStep")
-				.<DailyLogin, DailyLogin>chunk(chunkSize)
+				.<BardDailyLogin, BardDailyLogin>chunk(chunkSize)
 				.reader(jdbcPagingItemReader())
 				.writer(jdbcPagingItemWriter())
 				.build();
 	}
 
 	@Bean
-	public JdbcPagingItemReader<DailyLogin> jdbcPagingItemReader() throws Exception {
-		return new JdbcPagingItemReaderBuilder<DailyLogin>()
+	public JdbcPagingItemReader<BardDailyLogin> jdbcPagingItemReader() throws Exception {
+		return new JdbcPagingItemReaderBuilder<BardDailyLogin>()
 				.pageSize(chunkSize)
 				.fetchSize(chunkSize)
 				.dataSource(bardDatasource)
-				.rowMapper(new BeanPropertyRowMapper<>(DailyLogin.class))
+				.rowMapper(new BeanPropertyRowMapper<>(BardDailyLogin.class))
 				.queryProvider(createQueryProvider())
 				.name("jdbcPagingItemReader")
 				.build();
 	}
 
 	@Bean
-	public ItemWriter<DailyLogin> jdbcPagingItemWriter() {
+	public ItemWriter<BardDailyLogin> jdbcPagingItemWriter() {
 		return list -> {
-			for (DailyLogin dailyLogin : list) {
-				log.info("DailyLogin : {}", dailyLogin);
+			for (BardDailyLogin bardDailyLogin : list) {
+				log.info("DailyLogin : {}", bardDailyLogin);
 			}
 		};
 	}
 
-	@Bean
+//	@Bean
 	public PagingQueryProvider createQueryProvider() throws Exception {
 		SqlPagingQueryProviderFactoryBean queryProvider = new SqlPagingQueryProviderFactoryBean();
 		queryProvider.setDataSource(bardDatasource);

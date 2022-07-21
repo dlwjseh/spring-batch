@@ -16,12 +16,12 @@ spring:
       driver-class-name: com.mysql.cj.jdbc.Driver
       jdbc-url: jdbc:mysql://localhost:3306/alfredbatch
       username: root
-      password: root
+      password: Gnlfhfh12@
     alfred:
       driver-class-name: com.mysql.cj.jdbc.Driver
       jdbc-url: jdbc:mysql://localhost:3306/saas-alfredtestdb
       username: root
-      password: root
+      password: Gnlfhfh12@
 
 logging:
   level:

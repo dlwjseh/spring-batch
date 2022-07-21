@@ -13,7 +13,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 
-import kr.co.kbds.alfredbatch.domain.DailyLogin;
+import kr.co.kbds.alfredbatch.domain.bard.BardDailyLogin;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
@@ -37,28 +37,28 @@ public class JdbcCursorItemReaderJobConfiguration {
 	@Bean
 	public Step jdbcCursorItemReaderStep() {
 		return stepBuilderFactory.get("jdbcCursorItemReaderStep")
-				.<DailyLogin, DailyLogin>chunk(chunkSize)
+				.<BardDailyLogin, BardDailyLogin>chunk(chunkSize)
 				.reader(jdbcCursorItemReader())
 				.writer(jdbcCursorItemWriter())
 				.build();
 	}
 
 	@Bean
-	public JdbcCursorItemReader<DailyLogin> jdbcCursorItemReader() {
-		return new JdbcCursorItemReaderBuilder<DailyLogin>()
+	public JdbcCursorItemReader<BardDailyLogin> jdbcCursorItemReader() {
+		return new JdbcCursorItemReaderBuilder<BardDailyLogin>()
 				.fetchSize(chunkSize) // Database에서 한번에 가져올 데이터 양
 				.dataSource(bardDatasource)
-				.rowMapper(new BeanPropertyRowMapper<>(DailyLogin.class)) // 쿼리 결과를 Java 인스턴스로 매핑하기 위한 Mapper
+				.rowMapper(new BeanPropertyRowMapper<>(BardDailyLogin.class)) // 쿼리 결과를 Java 인스턴스로 매핑하기 위한 Mapper
 				.sql("SELECT login_year_month, login_day, product_id, login_count FROM daily_login")
 				.name("jdbcCursorItemReader") // Bean이름 X. Spring Batch의 ExecutionContext에서 저장되어질 이름
 				.build();
 	}
 
 	@Bean
-	public ItemWriter<DailyLogin> jdbcCursorItemWriter() {
+	public ItemWriter<BardDailyLogin> jdbcCursorItemWriter() {
 		return list -> {
-			for (DailyLogin dailyLogin : list) {
-				log.info("DailyLogin : {}", dailyLogin);
+			for (BardDailyLogin bardDailyLogin : list) {
+				log.info("DailyLogin : {}", bardDailyLogin);
 			}
 		};
 	}
