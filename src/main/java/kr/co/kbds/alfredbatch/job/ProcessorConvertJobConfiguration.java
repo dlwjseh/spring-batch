@@ -63,8 +63,11 @@ public class ProcessorConvertJobConfiguration {
 
     @Bean
     public ItemProcessor<BardDailyLogin, DailyLogin> processor() {
-        return bardDaily -> new DailyLogin(bardDaily.getLoginYearMonth()+bardDaily.getLoginDay(),
-                bardDaily.getProductId(), bardDaily.getLoginCount());
+        return bardDaily -> {
+            String loginDay = bardDaily.getLoginDay();
+            return new DailyLogin(bardDaily.getLoginYearMonth()+ (loginDay.length()>1 ? "" : "0") + loginDay,
+                    bardDaily.getProductId(), bardDaily.getLoginCount());
+        };
     }
 
     @Bean
